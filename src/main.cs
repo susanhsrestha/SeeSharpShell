@@ -9,6 +9,7 @@ while (true)
     // Wait for user input
     string command = Console.ReadLine();
     string[] commandParse = command.Split(' ');
+    string[] builtinCommands = { "exit", "echo", "type" };
     switch (commandParse[0])
     {
         case "exit":
@@ -22,6 +23,13 @@ while (true)
                 Console.WriteLine(string.Join(" ", commandParse[1..]));
             else
                 Console.WriteLine($"{commandParse[0]}: command needs more argument to execute");
+            break;
+
+        case "type":
+            if (builtinCommands.Contains(commandParse[1]))
+                Console.WriteLine($"{commandParse[1]} is a shell builtin");
+            else
+                Console.WriteLine($"{commandParse[1]}: not found");
             break;
 
         default:
