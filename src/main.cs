@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Collections;
 
 // Uncomment this line to pass the first stage
 while (true)
@@ -10,6 +11,9 @@ while (true)
     string command = Console.ReadLine();
     string[] commandParse = command.Split(' ');
     string[] builtinCommands = { "exit", "echo", "type" };
+    var getPathVariable = Environment.GetEnvironmentVariable("PATH");
+    var pathVariables = getPathVariable.Split(':');
+
     switch (commandParse[0])
     {
         case "exit":
@@ -26,10 +30,21 @@ while (true)
             break;
 
         case "type":
-            if (builtinCommands.Contains(commandParse[1]))
-                Console.WriteLine($"{commandParse[1]} is a shell builtin");
-            else
-                Console.WriteLine($"{commandParse[1]}: not found");
+            // search for the command in the PATH
+            if (commandParse.Length > 1)
+            {
+                bool found = false;
+                foreach (var path in pathVariables)
+                {
+                    string fullPath = Path.Combine(path, commandParse[1]);
+                    if (File.Exists(fullPath))
+                    {
+                        Console.WriteLine($"{commandParse[1]} is {fullPath}");
+                        found = true;
+                        break;
+                    }
+                }
+            }
             break;
 
         default:
