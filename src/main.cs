@@ -30,25 +30,21 @@ while (true)
             break;
 
         case "type":
-            // search for the command in the PATH
             if (commandParse.Length > 1)
             {
-                bool found = false;
+                bool isFound = false;
                 foreach (var path in pathVariables)
                 {
                     string fullPath = Path.Combine(path, commandParse[1]);
                     if (File.Exists(fullPath))
                     {
                         Console.WriteLine($"{commandParse[1]} is {fullPath}");
-                        found = true;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{commandParse[1]}: not found");
+                        isFound = true;
                         break;
                     }
                 }
+                if (!isFound)
+                    Console.WriteLine($"{commandParse[1]}: not found");
             }
             break;
 
