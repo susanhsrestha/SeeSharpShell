@@ -33,18 +33,27 @@ while (true)
             if (commandParse.Length > 1)
             {
                 bool isFound = false;
-                foreach (var path in pathVariables)
+                if (builtinCommands.Contains(commandParse[1]))
                 {
-                    string fullPath = Path.Combine(path, commandParse[1]);
-                    if (File.Exists(fullPath))
-                    {
-                        Console.WriteLine($"{commandParse[1]} is {fullPath}");
-                        isFound = true;
-                        break;
-                    }
+                    Console.WriteLine($"{commandParse[1]} is a shell builtin");
+                    isFound = true;
+                    break;
                 }
-                if (!isFound)
-                    Console.WriteLine($"{commandParse[1]}: not found");
+                else
+                {
+                    foreach (var path in pathVariables)
+                    {
+                        string fullPath = Path.Combine(path, commandParse[1]);
+                        if (File.Exists(fullPath))
+                        {
+                            Console.WriteLine($"{commandParse[1]} is {fullPath}");
+                            isFound = true;
+                            break;
+                        }
+                    }
+                    if (!isFound)
+                        Console.WriteLine($"{commandParse[1]}: not found");
+                }
             }
             break;
 
