@@ -43,6 +43,11 @@ while (true)
                         found = true;
                         break;
                     }
+                    else
+                    {
+                        Console.WriteLine($"{commandParse[1]}: not found");
+                        break;
+                    }
                 }
             }
             break;
