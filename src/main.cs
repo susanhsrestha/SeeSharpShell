@@ -7,15 +7,25 @@ while (true)
     Console.Write("$ ");
 
     // Wait for user input
-    var command = Console.ReadLine();
-
-    switch (command)
+    string command = Console.ReadLine();
+    string[] commandParse = command.Split(' ');
+    switch (commandParse[0])
     {
-        case "exit 0":
-            return;
+        case "exit":
+            if (commandParse.Length > 1 && commandParse[1] == "0")
+                return;
+            Console.WriteLine($"{commandParse[0]}: command needs more argument to exit");
+            break;
+
+        case "echo":
+            if (commandParse.Length > 1)
+                Console.WriteLine(string.Join(" ", commandParse[1..]));
+            else
+                Console.WriteLine($"{commandParse[0]}: command needs more argument to execute");
+            break;
 
         default:
-            Console.WriteLine($"{command}: command not found");
+            Console.WriteLine($"{commandParse[0]}: command not found");
             break;
     }
 }
