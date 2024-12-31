@@ -9,5 +9,13 @@ while (true)
     // Wait for user input
     var command = Console.ReadLine();
 
-    Console.WriteLine($"{command}: command not found");
+    switch (command)
+    {
+        case "exit 0":
+            return;
+
+        default:
+            Console.WriteLine($"{command}: command not found");
+            break;
+    }
 }
