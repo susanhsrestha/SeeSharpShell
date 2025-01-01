@@ -91,6 +91,11 @@ void ExecuteBuiltinCommands(string[] commandParse)
             Console.WriteLine(Directory.GetCurrentDirectory());
             break;
         case "cd":
+            if (commandParse.Length > 1 && commandParse[1] == "~")
+            {
+                Directory.SetCurrentDirectory(Environment.GetEnvironmentVariable("HOME"));
+                break;
+            }
             if (commandParse.Length > 1)
             {
                 try
