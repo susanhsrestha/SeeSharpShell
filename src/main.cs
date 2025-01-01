@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Collections;
 using System.Diagnostics;
 
-string[] builtinCommands = { "exit", "echo", "type" };
+string[] builtinCommands = { "exit", "echo", "type", "pwd" };
 // Uncomment this line to pass the first stage
 var getPathVariables = Environment.GetEnvironmentVariable("PATH");
 var delimiter = ":";
