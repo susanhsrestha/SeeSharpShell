@@ -10,7 +10,7 @@ var delimiter = ":";
 // check if the system is windows and set the delimiter to ';'
 if (Environment.OSVersion.Platform == PlatformID.Win32NT)
     delimiter = ";";
-var pathVariables = getPathVariables.Split(':');
+var pathVariables = getPathVariables.Split(delimiter);
 
 bool run = true;
 
@@ -86,6 +86,9 @@ void ExecuteBuiltinCommands(string[] commandParse)
                 break;
             }
             Console.WriteLine($"{commandParse[0]}: command needs more argument to execute");
+            break;
+        case "pwd":
+            Console.WriteLine(Directory.GetCurrentDirectory());
             break;
     }
 }
