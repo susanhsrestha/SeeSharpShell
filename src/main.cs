@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Collections;
 using System.Diagnostics;
 
-string[] builtinCommands = { "exit", "echo", "type", "pwd" };
+string[] builtinCommands = { "exit", "echo", "type", "pwd", "cd" };
 // Uncomment this line to pass the first stage
 var getPathVariables = Environment.GetEnvironmentVariable("PATH");
 var delimiter = ":";
@@ -89,6 +89,23 @@ void ExecuteBuiltinCommands(string[] commandParse)
             break;
         case "pwd":
             Console.WriteLine(Directory.GetCurrentDirectory());
+            break;
+        case "cd":
+            if (commandParse.Length > 1)
+            {
+                try
+                {
+                    Directory.SetCurrentDirectory(commandParse[1]);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"cd: {commandParse[1]}: No such file or directory");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{commandParse[0]}: command needs more argument to execute");
+            }
             break;
     }
 }
