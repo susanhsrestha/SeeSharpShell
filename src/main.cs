@@ -103,9 +103,7 @@ void ExecuteBuiltinCommands(string[] commandParse)
                 }
             }
             else
-            {
-                Console.WriteLine($"{commandParse[0]}: command needs more argument to execute");
-            }
+                Directory.SetCurrentDirectory("/");
             break;
     }
 }
