@@ -62,7 +62,14 @@ void ExecuteBuiltinCommands(string[] commandParse)
 
         case "echo":
             if (commandParse.Length > 1)
+            {
+                if (commandParse[1][0] == '\'')
+                {
+                    Console.WriteLine(string.Join(" ", commandParse[1..])[1..^1]);
+                    break;
+                }
                 Console.WriteLine(string.Join(" ", commandParse[1..]));
+            }
             else
                 Console.WriteLine($"{commandParse[0]}: command needs more argument to execute");
             break;
