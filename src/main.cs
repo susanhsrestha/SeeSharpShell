@@ -112,8 +112,14 @@ public class Shell
         {
             using var process = new Process();
             process.StartInfo.FileName = execPath;
-            process.StartInfo.Arguments = string.Join(" ", commandParts[1..]);
             process.StartInfo.UseShellExecute = false;
+            
+            // Add arguments individually to handle spaces and special characters properly
+            foreach (var arg in commandParts[1..])
+            {
+                process.StartInfo.ArgumentList.Add(arg);
+            }
+            
             process.Start();
             process.WaitForExit();
         }
@@ -248,7 +254,7 @@ public class Shell
         }
         catch (DirectoryNotFoundException)
         {
-            Console.WriteLine($"cd: {commandParts[1]}: No such file or directory");
+            Console.WriteLine($"cd: {targetPath}: No such file or directory");
         }
         catch (Exception ex)
         {
@@ -325,7 +331,9 @@ public class Shell
     private string? GetExecutablePath(string command)
     {
         // Check if command is an absolute or relative path
-        if (command.Contains(Path.DirectorySeparatorChar) || command.Contains('/'))
+        // Handle both Windows (\) and Unix (/) directory separators
+        if (command.Contains(Path.DirectorySeparatorChar) || 
+            command.Contains(Path.AltDirectorySeparatorChar))
         {
             return File.Exists(command) ? command : null;
         }
