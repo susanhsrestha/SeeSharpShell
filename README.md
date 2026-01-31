@@ -1,5 +1,6 @@
 [![progress-banner](https://backend.codecrafters.io/progress/shell/9727396d-8c2d-4315-a442-0fb397ec7185)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 [![CI](https://github.com/susanhsrestha/SeeSharpShell/actions/workflows/ci.yml/badge.svg)](https://github.com/susanhsrestha/SeeSharpShell/actions/workflows/ci.yml)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/susanhsrestha/SeeSharpShell)
 
 # SeeSharpShell
 
@@ -116,3 +117,36 @@ This repository includes a GitHub Actions workflow that runs on every push and p
 - **Status Badge**: Shows current build status at the top of this README
 
 You can view the live test results in the Actions tab of this repository during PRs.
+
+## Interactive Testing with GitHub Codespaces
+
+Want to test the shell interactively during a PR? Use **GitHub Codespaces** to spin up a cloud-based development environment:
+
+### How to Use
+
+1. **Open a Codespace**: Click the "Open in GitHub Codespaces" badge at the top of this README, or:
+   - Go to the repository or PR
+   - Click the green "Code" button
+   - Select "Codespaces" tab
+   - Click "Create codespace on [branch]"
+
+2. **Wait for Setup**: The environment will automatically:
+   - Install .NET 9.0
+   - Build the shell
+   - Show you how to run it
+
+3. **Run the Shell**: In the terminal, type:
+   ```sh
+   ./your_program.sh
+   ```
+
+4. **Test Interactively**: Type commands like `help`, `echo Hello`, `pwd`, etc.
+
+5. **Stop When Done**: Simply close the browser tab. The Codespace will automatically stop after inactivity and can be deleted from your [Codespaces dashboard](https://github.com/codespaces).
+
+### Benefits
+
+- **No local setup required** - Everything runs in the cloud
+- **Pre-configured environment** - .NET 9.0 and VS Code extensions ready
+- **Isolated testing** - Each PR can have its own Codespace
+- **Automatic cleanup** - Codespaces auto-stop after 30 minutes of inactivity
