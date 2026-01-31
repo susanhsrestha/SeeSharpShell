@@ -1,4 +1,5 @@
 [![progress-banner](https://backend.codecrafters.io/progress/shell/9727396d-8c2d-4315-a442-0fb397ec7185)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+[![CI](https://github.com/susanhsrestha/SeeSharpShell/actions/workflows/ci.yml/badge.svg)](https://github.com/susanhsrestha/SeeSharpShell/actions/workflows/ci.yml)
 
 # SeeSharpShell
 
@@ -105,3 +106,13 @@ This project is a solution to the CodeCrafters "Build Your Own Shell" challenge.
 - Implement built-in commands like cd, pwd, echo, and more
 
 **Note**: If you're viewing this repo on GitHub, head over to [codecrafters.io](https://codecrafters.io) to try the challenge.
+
+## CI/CD Pipeline
+
+This repository includes a GitHub Actions workflow that runs on every push and pull request:
+
+- **Build**: Compiles the project on Ubuntu, Windows, and macOS
+- **Test**: Runs automated tests for all built-in shell commands
+- **Status Badge**: Shows current build status at the top of this README
+
+You can view the live test results in the Actions tab of this repository during PRs.
