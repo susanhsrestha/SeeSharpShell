@@ -1,0 +1,21 @@
+{
+    "name": "SeeSharpShell Development",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:1-9.0",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csharp",
+                "ms-dotnettools.csdevkit"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        }
+    },
+    "postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
+    "postStartCommand": "echo 'Welcome to SeeSharpShell! Run ./your_program.sh to start the shell.'",
+    "remoteUser": "vscode"
+}

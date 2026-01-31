@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore --output ./build
+
+      - name: Test Shell Commands
+        run: |
+          echo "Testing shell built-in commands..."
+          
+          # Test help command
+          echo "=== Testing 'help' command ==="
+          OUTPUT=$(echo -e "help\nexit 0" | ./build/codecrafters-shell)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "Built-in commands:"; then
+            echo "✓ help command works"
+          else
+            echo "✗ help command failed"
+            exit 1
+          fi
+          
+          # Test echo command
+          echo "=== Testing 'echo' command ==="
+          OUTPUT=$(echo -e "echo Hello World\nexit 0" | ./build/codecrafters-shell)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "Hello World"; then
+            echo "✓ echo command works"
+          else
+            echo "✗ echo command failed"
+            exit 1
+          fi
+          
+          # Test pwd command
+          echo "=== Testing 'pwd' command ==="
+          OUTPUT=$(echo -e "pwd\nexit 0" | ./build/codecrafters-shell)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "/"; then
+            echo "✓ pwd command works"
+          else
+            echo "✗ pwd command failed"
+            exit 1
+          fi
+          
+          # Test type command for builtin
+          echo "=== Testing 'type' command ==="
+          OUTPUT=$(echo -e "type echo\nexit 0" | ./build/codecrafters-shell)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "shell builtin"; then
+            echo "✓ type command works for builtins"
+          else
+            echo "✗ type command failed"
+            exit 1
+          fi
+          
+          # Test history command
+          echo "=== Testing 'history' command ==="
+          OUTPUT=$(echo -e "echo first\necho second\nhistory\nexit 0" | ./build/codecrafters-shell)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "echo first" && echo "$OUTPUT" | grep -q "echo second"; then
+            echo "✓ history command works"
+          else
+            echo "✗ history command failed"
+            exit 1
+          fi
+          
+          # Test env command
+          echo "=== Testing 'env' command ==="
+          OUTPUT=$(echo -e "env PATH\nexit 0" | ./build/codecrafters-shell)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "PATH="; then
+            echo "✓ env command works"
+          else
+            echo "✗ env command failed"
+            exit 1
+          fi
+          
+          echo ""
+          echo "========================================="
+          echo "All tests passed successfully!"
+          echo "========================================="
+
+  build-matrix:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Build
+        run: dotnet build --configuration Release
